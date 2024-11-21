@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{b7721e51-b42b-4036-9740-e86651003f46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{340fb0b7-d5a2-44fc-b37b-2703cd1027f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\utils">
+      <UniqueIdentifier>{87c15d99-f628-44d6-b458-cf1d83c08a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils">
+      <UniqueIdentifier>{00dc5238-e19f-4179-b45f-046468bf92bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{26d0c6b7-a362-4c74-b648-fbc402fbe813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\models">
+      <UniqueIdentifier>{aae9e499-0834-4fe2-99ca-c8fd5176a24f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\texturas">
+      <UniqueIdentifier>{30dac144-3eef-4c5c-9d27-c1508be0dcd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sounds">
+      <UniqueIdentifier>{d4a83c47-0985-479c-9703-eb80d26e2066}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\fonts">
+      <UniqueIdentifier>{37e0a21c-25b5-49d6-aad4-d3161e987331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\models\player">
+      <UniqueIdentifier>{6cb4b9ed-8fbb-445e-b1d6-ad9d2123826b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\models\enemies">
+      <UniqueIdentifier>{4875c852-15f4-4458-bd8f-64c3380ec8de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\models\environment">
+      <UniqueIdentifier>{ec51a689-6686-4bd2-9bd5-a52b203f070a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\texturas\player">
+      <UniqueIdentifier>{10ef06cb-5766-4491-bb4a-6901ebea05df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\texturas\enemies">
+      <UniqueIdentifier>{0de7a033-48ae-4f33-b980-ec748e65c5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\texturas\environment">
+      <UniqueIdentifier>{67e63530-7b84-4613-b424-00c062788055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sounds\music">
+      <UniqueIdentifier>{8d1c3088-348f-497b-b869-730087a61df4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sounds\effects">
+      <UniqueIdentifier>{84a5202a-c1a3-4e64-9842-6028176b19b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\sounds\ambient">
+      <UniqueIdentifier>{059acd79-c436-4a4d-8768-f635c3dba358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{a8908b68-efdd-4bc6-8cec-311c5458feb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\vertex">
+      <UniqueIdentifier>{e177d614-113b-42c1-9b3a-0e767dd46be8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\fragment">
+      <UniqueIdentifier>{294d1190-3a71-42c2-839c-4bba25851ead}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="textures.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="environment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="textures.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\II\PacManDemo\PacManDemo\PacManDemo\stb_image.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="environment.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
