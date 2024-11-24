@@ -9,7 +9,7 @@ void display() {
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);//CAMPO DE VISION JUGADOR (45 GRADO)
+    gluPerspective(75.0f, 800.0f / 600.0f, 0.1f, 500.0f);
     glMatrixMode(GL_MODELVIEW);
 
     glLoadIdentity();
@@ -50,11 +50,12 @@ int main(int argc, char** argv) {
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
 
-    glEnable(GL_DEPTH_TEST); // Habilita el test de profundidad
-    glEnable(GL_CULL_FACE);  // Habilita el culling de caras (opcional)
-    glFrontFace(GL_CCW);     // Sentido de las caras frontales: antihorario
-    glCullFace(GL_BACK);     // Elimina las caras traseras
-    glShadeModel(GL_SMOOTH); // Suavizado de colores
+    //glDepthFunc(GL_LESS);
+    glEnable(GL_DEPTH_TEST); 
+    glEnable(GL_CULL_FACE);  
+    glFrontFace(GL_CCW);     
+    glCullFace(GL_BACK);     
+    glShadeModel(GL_SMOOTH); 
 
 
     glutMainLoop();

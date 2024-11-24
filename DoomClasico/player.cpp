@@ -3,24 +3,24 @@
 #include <cmath>
 #include "player.h"
 
-float jugadorX = 0.0f, jugadorY = 1.0f, jugadorZ = 5.0f;
-float anguloJugador = 0.0f;
-float anguloVertical = 0.0f;
+float jugadorX = 2.5f, jugadorY = 0.5f, jugadorZ = 2.5f;
+float anguloJugador = 0.0f;  
+float anguloVertical = 0.0f; 
 
 int mouseXAnterior = 400;
 int mouseYAnterior = 300;
 
 void inicializarJugador() {
-    jugadorX = 0.0f;
-    jugadorY = 1.0f;
-    jugadorZ = 5.0f;
+    jugadorX = 2.5f;
+    jugadorY = 0.5f;
+    jugadorZ = 2.5f;
     anguloJugador = 0.0f;
     anguloVertical = 0.0f;
 }
 
 void manejarMovimientoJugador(unsigned char key) {
     const float velocidadMovimiento = 0.2f;
-    if (key == 'w') { 
+    if (key == 'w') {  
         jugadorX += velocidadMovimiento * sin(anguloJugador);
         jugadorZ -= velocidadMovimiento * cos(anguloJugador);
     }
@@ -39,7 +39,7 @@ void manejarMovimientoJugador(unsigned char key) {
 }
 
 void manejarMovimientoMouse(int x, int y) {
-    const float sensibilidad = 0.002f;  
+    const float sensibilidad = 0.002f;
 
     float deltaX = (x - mouseXAnterior) * sensibilidad;
     anguloJugador += deltaX;
@@ -47,8 +47,8 @@ void manejarMovimientoMouse(int x, int y) {
     float deltaY = (y - mouseYAnterior) * sensibilidad;
     anguloVertical -= deltaY;
 
-    if (anguloVertical > 90.0f) anguloVertical = 90.0f; 
-    if (anguloVertical < -90.0f) anguloVertical = -90.0f;
+    if (anguloVertical > 1.4f) anguloVertical = 1.4f;  
+    if (anguloVertical < -1.4f) anguloVertical = -1.4f; 
 
     mouseXAnterior = x;
     mouseYAnterior = y;
@@ -57,7 +57,9 @@ void manejarMovimientoMouse(int x, int y) {
 }
 
 void actualizarCamara() {
-    gluLookAt(jugadorX, jugadorY + 1.0f, jugadorZ,
-        jugadorX + sin(anguloJugador), jugadorY + sin(anguloVertical) + 1.0f, jugadorZ - cos(anguloJugador),
-        0.0f, 1.0f, 0.0f);
+    gluLookAt(
+        jugadorX, jugadorY + 1.0f, jugadorZ, 
+        jugadorX + sin(anguloJugador), jugadorY + sin(anguloVertical) + 1.0f, jugadorZ - cos(anguloJugador), 
+        0.0f, 1.0f, 0.0f  
+    );
 }
