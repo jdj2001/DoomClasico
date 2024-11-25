@@ -11,11 +11,11 @@ int mouseXAnterior = 400;
 int mouseYAnterior = 300;
 
 void inicializarJugador() {
-    jugadorX = 2.5f;
+    /*jugadorX = 2.5f;
     jugadorY = 0.5f;
     jugadorZ = 2.5f;
     anguloJugador = 0.0f;
-    anguloVertical = 0.0f;
+    anguloVertical = 0.0f;*/
 }
 
 void manejarMovimientoJugador(unsigned char key) {
@@ -39,7 +39,7 @@ void manejarMovimientoJugador(unsigned char key) {
 }
 
 void manejarMovimientoMouse(int x, int y) {
-    const float sensibilidad = 0.002f;
+    const float sensibilidad = 0.005f;
 
     float deltaX = (x - mouseXAnterior) * sensibilidad;
     anguloJugador += deltaX;
