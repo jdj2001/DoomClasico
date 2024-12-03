@@ -1,5 +1,7 @@
 #include "collision.h"
+#include "environment.h"
 #include <cmath>
+#include <string>
 
 bool checkCollision(float x1, float y1, float x2, float y2, float radius) {
     float dx = x2 - x1;
@@ -7,3 +9,4 @@ bool checkCollision(float x1, float y1, float x2, float y2, float radius) {
     float distance = std::sqrt(dx * dx + dy * dy);
     return distance < radius;
 }
+

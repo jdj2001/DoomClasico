@@ -4,41 +4,31 @@
 #include "textures.h"
 #include <iostream>
 
-// Estado del arma
 float armaY = 0.0f;
 bool disparando = false;
 int frameDisparo = 0;
 GLuint spriteArma;
 
-// Dimensiones del sprite
 float textureWidth = 590.0f;
 float textureHeight = 626.0f;
 
-// Coordenadas normalizadas de textura
 struct Animacion {
     float texCoordLeft, texCoordRight, texCoordBottom, texCoordTop;
 };
 
-// Animaciones del arma
 Animacion posicionNormalAnim = {
     3.0f / textureWidth, (3.0f + 116.0f) / textureWidth,
     (105.0f + 95.0f) / textureHeight, 105.0f / textureHeight
 };
 
 Animacion disparoAnimaciones[] = {
+    //{3.0f / textureWidth, (3.0f + 116.0f) / textureWidth, (105.0f + 95.0f) / textureHeight, 105.0f / textureHeight},
     {122.0f / textureWidth, (122.0f + 150.0f) / textureWidth, (57.0f + 143.0f) / textureHeight, 57.0f / textureHeight},
     {275.0f / textureWidth, (275.0f + 94.0f) / textureWidth, (17.0f + 183.0f) / textureHeight, 17.0f / textureHeight},
     {372.0f / textureWidth, (372.0f + 127.0f) / textureWidth, (37.0f + 163.0f) / textureHeight, 37.0f / textureHeight}
+    //{3.0f / textureWidth, (3.0f + 116.0f) / textureWidth, (105.0f + 95.0f) / textureHeight, 105.0f / textureHeight}
 };
 
-// Cargar la textura del arma
-/*void inicializarArma() {
-    spriteArma = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/personajes/WeaponsDoomAlpha_1.png");
-    if (spriteArma == 0) {
-        std::cerr << "Error: Textura del arma no cargada correctamente." << std::endl;
-        return;
-    }
-}*/
 void inicializarArma() {
     spriteArma = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/personajes/WeaponsDoomAlpha_1.png");
     if (spriteArma == 0) {
@@ -49,18 +39,14 @@ void inicializarArma() {
     glBindTexture(GL_TEXTURE_2D, spriteArma);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    
-
 }
 
 
-// Dibujar un sprite en pantalla (2D)
 void dibujarSprite(Animacion anim, float x, float y, float width, float height) {
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    gluOrtho2D(0, 800, 0, 600);  // Proyección ortográfica (espacio 2D ajustado al tamaño de la ventana)
+    gluOrtho2D(0, 800, 0, 600);  //Proyección ortográfica (espacio 2D ajustado al tamaño de la ventana)
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -91,19 +77,16 @@ void dibujarSprite(Animacion anim, float x, float y, float width, float height) 
     glMatrixMode(GL_MODELVIEW);
 }
 
-// Actualizar el arma
 void actualizarArma() {
     //float posicionX = 50.0f;  // Ajusta la posición X del arma
     //float posicionY = 6.0f;   // Ajusta la posición Y del arma
     //float ancho = 600.0f;      // Ancho del arma en pantalla
     //float alto = 200.0f;       // Alto del arma en pantalla
 
-    float ancho = 300.0f; // Ancho ajustado
-    float alto = ancho * (95.0f / 116.0f); // Mantiene la relación de aspecto original
-    float posicionX = (800.0f - ancho) / 2.0f; // Centrar horizontalmente
-    float posicionY = 10.0f;                   // Posición vertical fija
-
-
+    float ancho = 300.0f;
+    float alto = ancho * (95.0f / 116.0f);
+    float posicionX = (800.0f - ancho) / 2.0f;
+    float posicionY = 0.0f;
 
     if (disparando) {
         if (frameDisparo < 3) {
@@ -113,6 +96,7 @@ void actualizarArma() {
         else {
             disparando = false;
             frameDisparo = 0;
+            //dibujarSprite(posicionNormalAnim, posicionX, posicionY, ancho, alto);
         }
     }
     else {
@@ -120,12 +104,13 @@ void actualizarArma() {
     }
 }
 
-// Manejar disparo
 void manejarDisparo(int button, int state, int x, int y) {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         disparando = true;
         frameDisparo = 0;
+        //actualizarArma();
         glutPostRedisplay();
+        
     }
     std::cerr << "Disparo manejado: " << (disparando ? "Sí" : "No")
               << ", Frame: " << frameDisparo << std::endl;

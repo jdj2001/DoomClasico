@@ -4,6 +4,7 @@
 #include "environment.h"
 #include <string>
 #include "enemies.h"
+#include <cmath>
 
 const int MAP_SIZE = 30;
 
@@ -23,8 +24,8 @@ const std::string MAP[MAP_SIZE][MAP_SIZE] = {
     {"P5", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "P5", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
     {"P5", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "P5", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
     {"P5", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "D4", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
-    {"P5", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "O", "O", "S5", "S5", "S5", "S5", "D4", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
-    {"P5", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "O", "O", "S5", "S5", "S5", "S5", "D4", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
+    {"P5", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "O", "O", "S5", "S5", "S5", "S5", "S5", "S5", "S5", "S5", "D4", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
+    {"P5", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "S8", "O", "O", "S5", "S5", "S5", "S5", "S5", "S5", "S5", "S5", "D4", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
     {"P5", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "S6", "D4", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
     {"P5", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "P5", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
     {"P5", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "S7", "P5", "S4", "S4", "S4", "S4", "S4", "S4", "P4"},
@@ -33,14 +34,15 @@ const std::string MAP[MAP_SIZE][MAP_SIZE] = {
 };
 
 void inicializarEntorno() {
-    loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/suelo/tn116.jpg"); // Piso
-    loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/paredes/tn373.jpg"); // Pared
+    loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/suelo/tn116.jpg");
+    loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/paredes/tn373.jpg");
 }
 
 void dibujarMapa() {
     glEnable(GL_TEXTURE_2D);
 
     const int techo = 5;
+    const int ArmaEspecial = 2;
 
     //AREA INICIAL
     GLuint texturaTechoInicio = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/techo/techo_bloque_2.png");
@@ -81,8 +83,8 @@ void dibujarMapa() {
     GLuint texturaTechoArea4_CentralFinal = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/techo/techoCentralFinal_jefe.png");//con suelo S8
     GLuint texturaTechoArea4_Lateral = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/techo/techoCentralLateral_jefe.png");//con suelo S6 y S7
 
-
-
+    //ARMA ESPECIAL
+    GLuint texturaTechoArea_ArmaEspecial = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/suelo/sueloArmaEspecial3.png");
     
     for (int x = 0; x < MAP_SIZE; x++) {
         for (int z = 0; z < MAP_SIZE; z++) {
@@ -659,8 +661,135 @@ void dibujarMapa() {
                 glTexCoord2f(0.0f, 0.0f); glVertex3f(x, techo, z + 1.0f);
                 glEnd();
             }
+            //ARMA ESPECIAL
+            if (MAP[x][z] == "O") {
+                glBindTexture(GL_TEXTURE_2D, texturaTechoArea_ArmaEspecial);
+                glBegin(GL_QUADS);
+
+                // Cara frontal
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(x, 1.0f, z);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, 1.0f, z);
+                glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, 0.0f, z);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(x, 0.0f, z);
+
+                // Cara lateral izquierda
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(x, 0.0f, z);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(x, 0.0f, z + 1.0f);
+                glTexCoord2f(1.0f, 1.0f); glVertex3f(x, 1.0f, z + 1.0f);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(x, 1.0f, z);
+
+                // Cara trasera
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(x + 1.0f, 1.0f, z + 1.0f);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(x, 1.0f, z + 1.0f);
+                glTexCoord2f(1.0f, 1.0f); glVertex3f(x, 0.0f, z + 1.0f);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(x + 1.0f, 0.0f, z + 1.0f);
+
+                // Cara lateral derecha
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(x + 1.0f, 0.0f, z + 1.0f);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, 0.0f, z);
+                glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, 1.0f, z);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(x + 1.0f, 1.0f, z + 1.0f);
+
+                // Cara inferior (suelo)
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(x, 0.0f, z);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, 0.0f, z);
+                glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, 0.0f, z + 1.0f);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(x, 0.0f, z + 1.0f);
+
+                // Cara superior (techo) --> Corrección
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(x, 1.0f, z + 1.0f);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, 1.0f, z + 1.0f);
+                glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, 1.0f, z);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(x, 1.0f, z);
+
+                glEnd();
+            }
+
+            if (MAP[x][z] == "O") {
+                glBindTexture(GL_TEXTURE_2D, texturaTechoArea4_CentralFinal);
+                glBegin(GL_QUADS);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(x, techo + 1.0f, z + 1.0f);
+                glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, techo + 1.0f, z + 1.0f);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, techo + 1.0f, z);
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(x, techo + 1.0f, z);
+
+                glBegin(GL_QUADS);
+                glTexCoord2f(0.0f, 1.0f); glVertex3f(x, techo, z);
+                glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, techo, z);
+                glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, techo, z + 1.0f);
+                glTexCoord2f(0.0f, 0.0f); glVertex3f(x, techo, z + 1.0f);
+                glEnd();
+            }
         }
     }
     glDisable(GL_TEXTURE_2D);
     dibujarEnemigos();
+}
+
+/*bool esCeldaBloqueada(const std::string& celda) {
+    return celda == "P" || celda == "D" || celda == "P2"; // Agrega otras celdas si es necesario
+}*/
+bool esCeldaBloqueada(const std::string& celda) {
+    // Agregar las celdas que son obstáculos, excluyendo las puertas
+    return celda != "D" && celda != "D1" && celda != "D2" &&
+        celda != "D3" && celda != "D4" &&
+        (celda == "P" || celda == "P2" || celda == "P3" || celda == "P4" || celda == "P5" || celda == "O");
+}
+
+bool colisionConMapa(float jugadorX, float jugadorZ) {
+    //MARGEN DE COLISIÓN PARA QUE NO ATRAVIESE LAS PAREDES (NO FUNCIONA SIN LAS VERIFICACIONES POSTERIORES)
+    const float margenColision = -0.2f; 
+
+    int gridX = static_cast<int>(jugadorX);
+    int gridZ = static_cast<int>(jugadorZ);
+
+    //LIMITES DEL MAPA
+    if (gridX < 0 || gridX >= MAP_SIZE || gridZ < 0 || gridZ >= MAP_SIZE) {
+        return true;
+    }
+
+    //SI SE LLEGA A LAS PAREDES, SE COLISIONA CON LOS BLOQUES/CELDAS
+    const std::string& celda = MAP[gridX][gridZ];
+    if (esCeldaBloqueada(celda)) {
+        float bordeIzquierdo = gridX + margenColision;
+        float bordeDerecho = gridX + 1.0f - margenColision;
+        float bordeSuperior = gridZ + margenColision;
+        float bordeInferior = gridZ + 1.0f - margenColision;
+
+        if (jugadorX >= bordeIzquierdo && jugadorX <= bordeDerecho &&
+            jugadorZ >= bordeSuperior && jugadorZ <= bordeInferior) {
+            return true;
+        }
+    }
+
+    //AUN QUEDA MARGEN EN EL QUE EL JUGADOR PUEDE VER DENTRO DE LAS PAREDES, POR LO QUE
+    //SE DEBE VERIFICAR LAS COLISIONES CON LAS CELDAS ADYACENTES PARA QUE EXISTAN COLISIONES CON LAS
+    //DIAGONALES Y MEJORAR LA DETECCIÓN DE COLISIONES
+    for (int offsetX = -1; offsetX <= 1; ++offsetX) {
+        for (int offsetZ = -1; offsetZ <= 1; ++offsetZ) {
+            int vecinoX = gridX + offsetX;
+            int vecinoZ = gridZ + offsetZ;
+
+            //LO MISMO QUE EL LIMITE DEL MAPA AL INICIO, SOLO QUE PARA VERIFICAR LAS DIAGONALES (DEMÁS CARAS DEL CUBO)
+            if (vecinoX < 0 || vecinoX >= MAP_SIZE || vecinoZ < 0 || vecinoZ >= MAP_SIZE) {
+                continue;
+            }
+
+            //DE NUEVO LA MISMA VERIFICACIÓN DE CELDA AHORA PARA LAS DEMÁS CARAS
+            const std::string& celdaVecina = MAP[vecinoX][vecinoZ];
+            if (esCeldaBloqueada(celdaVecina)) {
+                float bordeIzquierdo = vecinoX + margenColision;
+                float bordeDerecho = vecinoX + 1.0f - margenColision;
+                float bordeSuperior = vecinoZ + margenColision;
+                float bordeInferior = vecinoZ + 1.0f - margenColision;
+
+                if (jugadorX >= bordeIzquierdo && jugadorX <= bordeDerecho &&
+                    jugadorZ >= bordeSuperior && jugadorZ <= bordeInferior) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
 }

@@ -6,6 +6,8 @@
 #include <iostream>
 #include "weapon.h"
 #include "game.h"
+#include <SDL.h>
+#include <SDL_mixer.h>
 
 /*void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -38,7 +40,7 @@ void display() {
     actualizarCamara();
     dibujarMapa();
     actualizarArma();
-    renderizarEscena();  // Dibuja el entorno, jugador y enemigos.
+    renderizarEscena();
 
     glutSwapBuffers();
 }
@@ -57,7 +59,7 @@ void inicializarMouse() {
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // Fondo negro completamente transparente
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(800, 600);
     glutCreateWindow("Doom Clasico");
@@ -88,7 +90,6 @@ int main(int argc, char** argv) {
 
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // Fondo negro completamente transparente
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

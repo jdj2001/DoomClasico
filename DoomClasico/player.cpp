@@ -5,6 +5,8 @@
 #include "textures.h"
 #include "weapon.h"
 #include "enemies.h"
+#include "collision.h"
+#include "environment.h"
 
 float jugadorX = 2.5f, jugadorY = 0.5f, jugadorZ = 2.5f;
 float anguloJugador = 0.0f;  
@@ -42,7 +44,7 @@ void manejarMovimientoJugador(unsigned char key) {
         nuevoZ += velocidadMovimiento * sin(anguloJugador);
     }
 
-    if (!colisionConEnemigos(nuevoX, nuevoZ)) {
+    if (!colisionConMapa(nuevoX, nuevoZ)) {
         jugadorX = nuevoX;
         jugadorZ = nuevoZ;
     }
@@ -72,6 +74,6 @@ void actualizarCamara() {
         jugadorX + sin(anguloJugador), jugadorY + sin(anguloVertical) + 1.0f, jugadorZ - cos(anguloJugador),
         0.0f, 1.0f, 0.0f
     );
-    actualizarArma();
+    //actualizarArma();
 }
 
