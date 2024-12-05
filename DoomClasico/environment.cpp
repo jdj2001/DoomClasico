@@ -84,7 +84,7 @@ void dibujarMapa() {
     GLuint texturaTechoArea4_Lateral = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/techo/techoCentralLateral_jefe.png");//con suelo S6 y S7
 
     //ARMA ESPECIAL
-    GLuint texturaTechoArea_ArmaEspecial = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/suelo/sueloArmaEspecial3.png");
+    GLuint texturaPlataformaArea_ArmaEspecial = loadTexture("D:/clases/Comp Grafica y Visual/III/DoomClasico/DoomClasico/DoomClasico/sprites/suelo/sueloArmaEspecial3.png");
     
     for (int x = 0; x < MAP_SIZE; x++) {
         for (int z = 0; z < MAP_SIZE; z++) {
@@ -479,7 +479,7 @@ void dibujarMapa() {
                 glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, techo + 1.0f, z);
                 glTexCoord2f(0.0f, 0.0f); glVertex3f(x, techo + 1.0f, z);
 
-                glBegin(GL_QUADS);
+                
                 glTexCoord2f(0.0f, 1.0f); glVertex3f(x, techo, z);
                 glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, techo, z);
                 glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, techo, z + 1.0f);
@@ -663,40 +663,34 @@ void dibujarMapa() {
             }
             //ARMA ESPECIAL
             if (MAP[x][z] == "O") {
-                glBindTexture(GL_TEXTURE_2D, texturaTechoArea_ArmaEspecial);
+                glBindTexture(GL_TEXTURE_2D, texturaPlataformaArea_ArmaEspecial);
                 glBegin(GL_QUADS);
 
-                // Cara frontal
                 glTexCoord2f(0.0f, 0.0f); glVertex3f(x, 1.0f, z);
                 glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, 1.0f, z);
                 glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, 0.0f, z);
                 glTexCoord2f(0.0f, 1.0f); glVertex3f(x, 0.0f, z);
 
-                // Cara lateral izquierda
                 glTexCoord2f(0.0f, 0.0f); glVertex3f(x, 0.0f, z);
                 glTexCoord2f(1.0f, 0.0f); glVertex3f(x, 0.0f, z + 1.0f);
                 glTexCoord2f(1.0f, 1.0f); glVertex3f(x, 1.0f, z + 1.0f);
                 glTexCoord2f(0.0f, 1.0f); glVertex3f(x, 1.0f, z);
 
-                // Cara trasera
                 glTexCoord2f(0.0f, 0.0f); glVertex3f(x + 1.0f, 1.0f, z + 1.0f);
                 glTexCoord2f(1.0f, 0.0f); glVertex3f(x, 1.0f, z + 1.0f);
                 glTexCoord2f(1.0f, 1.0f); glVertex3f(x, 0.0f, z + 1.0f);
                 glTexCoord2f(0.0f, 1.0f); glVertex3f(x + 1.0f, 0.0f, z + 1.0f);
 
-                // Cara lateral derecha
                 glTexCoord2f(0.0f, 0.0f); glVertex3f(x + 1.0f, 0.0f, z + 1.0f);
                 glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, 0.0f, z);
                 glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, 1.0f, z);
                 glTexCoord2f(0.0f, 1.0f); glVertex3f(x + 1.0f, 1.0f, z + 1.0f);
 
-                // Cara inferior (suelo)
                 glTexCoord2f(0.0f, 0.0f); glVertex3f(x, 0.0f, z);
                 glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, 0.0f, z);
                 glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, 0.0f, z + 1.0f);
                 glTexCoord2f(0.0f, 1.0f); glVertex3f(x, 0.0f, z + 1.0f);
 
-                // Cara superior (techo) --> Corrección
                 glTexCoord2f(0.0f, 0.0f); glVertex3f(x, 1.0f, z + 1.0f);
                 glTexCoord2f(1.0f, 0.0f); glVertex3f(x + 1.0f, 1.0f, z + 1.0f);
                 glTexCoord2f(1.0f, 1.0f); glVertex3f(x + 1.0f, 1.0f, z);
@@ -727,10 +721,9 @@ void dibujarMapa() {
 }
 
 /*bool esCeldaBloqueada(const std::string& celda) {
-    return celda == "P" || celda == "D" || celda == "P2"; // Agrega otras celdas si es necesario
+    return celda == "P" || celda == "D" || celda == "P2";
 }*/
 bool esCeldaBloqueada(const std::string& celda) {
-    // Agregar las celdas que son obstáculos, excluyendo las puertas
     return celda != "D" && celda != "D1" && celda != "D2" &&
         celda != "D3" && celda != "D4" &&
         (celda == "P" || celda == "P2" || celda == "P3" || celda == "P4" || celda == "P5" || celda == "O");

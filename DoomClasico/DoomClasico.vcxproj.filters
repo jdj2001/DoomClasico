@@ -105,15 +105,21 @@
     <ClCompile Include="collision.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="music.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="textures.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureLoader.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\II\PacManDemo\PacManDemo\PacManDemo\stb_image.h">
@@ -132,6 +138,15 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="collision.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="music.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

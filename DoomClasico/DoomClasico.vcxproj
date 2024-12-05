@@ -142,7 +142,10 @@
     <ClCompile Include="environment.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="music.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="sound.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="textures.cpp" />
     <ClCompile Include="weapon.cpp" />
@@ -152,9 +155,11 @@
     <ClInclude Include="collision.h" />
     <ClInclude Include="environment.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="music.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="enemies.h" />
-    <ClInclude Include="TextureLoader.h" />
+    <ClInclude Include="sound.h" />
     <ClInclude Include="textures.h" />
     <ClInclude Include="weapon.h" />
   </ItemGroup>

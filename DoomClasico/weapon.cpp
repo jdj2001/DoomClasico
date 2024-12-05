@@ -1,10 +1,10 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "weapon.h"
+#include "sound.h"
 #include "textures.h"
 #include <iostream>
 
-float armaY = 0.0f;
 bool disparando = false;
 int frameDisparo = 0;
 GLuint spriteArma;
@@ -46,7 +46,7 @@ void dibujarSprite(Animacion anim, float x, float y, float width, float height) 
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    gluOrtho2D(0, 800, 0, 600);  //Proyección ortográfica (espacio 2D ajustado al tamaño de la ventana)
+    gluOrtho2D(0, 800, 0, 600);
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -77,41 +77,86 @@ void dibujarSprite(Animacion anim, float x, float y, float width, float height) 
     glMatrixMode(GL_MODELVIEW);
 }
 
-void actualizarArma() {
-    //float posicionX = 50.0f;  // Ajusta la posición X del arma
-    //float posicionY = 6.0f;   // Ajusta la posición Y del arma
-    //float ancho = 600.0f;      // Ancho del arma en pantalla
-    //float alto = 200.0f;       // Alto del arma en pantalla
-
+/*void actualizarArma() {
     float ancho = 300.0f;
     float alto = ancho * (95.0f / 116.0f);
     float posicionX = (800.0f - ancho) / 2.0f;
     float posicionY = 0.0f;
 
     if (disparando) {
-        if (frameDisparo < 3) {
-            dibujarSprite(disparoAnimaciones[frameDisparo], posicionX, posicionY, ancho, alto);
-            frameDisparo++;
+        // Recorremos todas las animaciones de disparo en un ciclo for
+        for (int i = 0; i < 3; i++) {
+            if (frameDisparo == i) {
+                dibujarSprite(disparoAnimaciones[i], posicionX, posicionY, ancho, alto);
+                frameDisparo++;
+                break; // Salimos del ciclo para evitar avanzar más de un frame por actualización
+            }
         }
-        else {
+
+        // Si hemos completado todas las animaciones, regresamos a la posición normal
+        if (frameDisparo == 3) {
             disparando = false;
             frameDisparo = 0;
             //dibujarSprite(posicionNormalAnim, posicionX, posicionY, ancho, alto);
         }
     }
     else {
+        // Posición normal del arma
+        dibujarSprite(posicionNormalAnim, posicionX, posicionY, ancho, alto);
+    }
+}*/
+void actualizarArma() {
+    float ancho = 300.0f;
+    float alto = ancho * (95.0f / 116.0f);
+    float posicionX = (800.0f - ancho) / 2.0f;
+    float posicionY = 0.0f;
+
+    if (disparando) {
+        // Dibuja el frame actual de disparo
+        dibujarSprite(disparoAnimaciones[frameDisparo], posicionX, posicionY, ancho, alto);
+    }
+    else {
+        // Dibuja la posición normal del arma
         dibujarSprite(posicionNormalAnim, posicionX, posicionY, ancho, alto);
     }
 }
+void animarDisparo(int value) {
+    if (disparando) {
+        frameDisparo++;
 
+        if (frameDisparo >= 3) {
+            disparando = false;
+            frameDisparo = 0;
+        }
+        else {
+            glutTimerFunc(200, animarDisparo, 0);
+        }
+        glutPostRedisplay();
+    }
+}
 void manejarDisparo(int button, int state, int x, int y) {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+        if (!disparando) {
+            disparando = true;
+            frameDisparo = 0;
+            animarDisparo(0);
+            reproducirSonidoDisparo();
+        }
+    }
+    std::cerr << "Disparo manejado: " << (disparando ? "Sí" : "No")
+        << ", Frame: " << frameDisparo << std::endl;
+}
+
+
+
+/*void manejarDisparo(int button, int state, int x, int y) {
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         disparando = true;
-        frameDisparo = 0;
+        //frameDisparo = 0;
         //actualizarArma();
         glutPostRedisplay();
         
     }
-    std::cerr << "Disparo manejado: " << (disparando ? "Sí" : "No")
+    std::cerr << "Disparo manejado: " << (disparando ? "Si" : "No")
               << ", Frame: " << frameDisparo << std::endl;
-}
+}*/

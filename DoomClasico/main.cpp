@@ -8,6 +8,8 @@
 #include "game.h"
 #include <SDL.h>
 #include <SDL_mixer.h>
+#include "music.h"
+#include "sound.h"
 
 /*void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -77,6 +79,10 @@ int main(int argc, char** argv) {
         return -1;
     }
 
+    if (!inicializarSonido()) {
+        return -1;
+    }
+
     /*glEnable(GL_TEXTURE_2D);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);*/
 
@@ -88,8 +94,11 @@ int main(int argc, char** argv) {
 	glutMouseFunc(manejarDisparo);
     glutPassiveMotionFunc(manejarMovimientoMouse);
 
+    //glutIdleFunc([]() { glutPostRedisplay(); });
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
+
+    generarAudioMision("./music/mission.wav");
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -106,5 +115,13 @@ int main(int argc, char** argv) {
 
 
     glutMainLoop();
+
+    while (true) {
+        SDL_Delay(100);
+    }
+
+    limpiarSonido();
+    liberarAudio();
+
     return 0;
 }
