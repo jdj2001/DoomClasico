@@ -114,6 +114,9 @@
     <ClCompile Include="music.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="enemigos.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -147,6 +150,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="music.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="enemigos.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

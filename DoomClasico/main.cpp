@@ -10,6 +10,7 @@
 #include <SDL_mixer.h>
 #include "music.h"
 #include "sound.h"
+#include "enemigos.h"
 
 /*void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -42,11 +43,16 @@ void display() {
     actualizarCamara();
     dibujarMapa();
     actualizarArma();
+    dibujarEnemigo();
     renderizarEscena();
 
     glutSwapBuffers();
 }
-
+void actualizar(int valor) {
+    moverEnemigo();     // Mover al enemigo
+    glutPostRedisplay(); // Actualizar la pantalla
+    glutTimerFunc(16, actualizar, 0); // Llamar de nuevo después de 16 ms (~60 FPS)
+}
 
 void keyboard(unsigned char key, int x, int y) {
     manejarMovimientoJugador(key);
@@ -89,6 +95,7 @@ int main(int argc, char** argv) {
     inicializarEntorno();
     inicializarJugador();
     inicializarArma();
+    cargarSpriteEnemigo();
 
     inicializarMouse();
 	glutMouseFunc(manejarDisparo);
@@ -98,7 +105,7 @@ int main(int argc, char** argv) {
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
 
-    generarAudioMision("./music/mission.wav");
+    //generarAudioMision("./music/mission.wav");
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

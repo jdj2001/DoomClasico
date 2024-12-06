@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="enemies.cpp" />
+    <ClCompile Include="enemigos.cpp" />
     <ClCompile Include="environment.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\II\PacManDemo\PacManDemo\PacManDemo\stb_image.h" />
     <ClInclude Include="collision.h" />
+    <ClInclude Include="enemigos.h" />
     <ClInclude Include="environment.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="Menu.h" />
