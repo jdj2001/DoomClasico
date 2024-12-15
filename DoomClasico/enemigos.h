@@ -12,4 +12,4 @@ void moverEnemigo();        // Actualiza la posición del enemigo
 
 
 #endif // !ENEMIGOS_H
-#pragma once*/
+#pragma once

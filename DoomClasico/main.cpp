@@ -11,7 +11,9 @@
 #include "music.h"
 #include "sound.h"
 #include "enemigos.h"
+#include "vida.h"
 
+Vida vida(100);
 /*void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -46,10 +48,12 @@ void display() {
     dibujarEnemigo();
     renderizarEscena();
 
+    vida.render();
+
     glutSwapBuffers();
 }
 void actualizar(int valor) {
-    moverEnemigo();     // Mover al enemigo
+    moverEnemigo();
     glutPostRedisplay(); // Actualizar la pantalla
     glutTimerFunc(16, actualizar, 0); // Llamar de nuevo después de 16 ms (~60 FPS)
 }
@@ -57,6 +61,7 @@ void actualizar(int valor) {
 void keyboard(unsigned char key, int x, int y) {
     manejarMovimientoJugador(key);
     glutPostRedisplay();
+
 }
 
 void inicializarMouse() {
@@ -105,7 +110,7 @@ int main(int argc, char** argv) {
     glutDisplayFunc(display);
     glutKeyboardFunc(keyboard);
 
-    //generarAudioMision("./music/mission.wav");
+    generarAudioMision("./music/mission.wav");
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -120,7 +125,7 @@ int main(int argc, char** argv) {
     glCullFace(GL_BACK);     
     glShadeModel(GL_SMOOTH);
 
-
+    glutTimerFunc(0, actualizar, 0);
     glutMainLoop();
 
     while (true) {

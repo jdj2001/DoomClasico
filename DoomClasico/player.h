@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+extern float jugadorX;
+extern float jugadorZ;
 extern int mouseXAnterior;
 extern int mouseYAnterior;
 
